@@ -1,0 +1,11 @@
+*
+!*.cpp
+!*.h
+!*.txt
+!tests
+!src
+!data
+!*.png
+!README.md
+!.gitignore
+!.xlsx

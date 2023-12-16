@@ -68,6 +68,7 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "bitset": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "filesystem": "cpp"
     }
 }

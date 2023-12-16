@@ -1,0 +1,15 @@
+#include <vector>
+#include <string>
+#ifndef BRUTEFORCE_H
+#define BRUTEFORCE_H
+
+class BruteForce {
+public:
+    explicit BruteForce(const std::string& string);
+	
+	std::vector<int> search(const std::string & pattern) const;
+
+private:
+    std::string string;
+};
+#endif
