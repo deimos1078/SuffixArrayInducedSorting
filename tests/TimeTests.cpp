@@ -39,7 +39,7 @@ int main() {
     std::vector<std::string> stringFiles = {"string1000000.txt", 
     "string2500000.txt", "string5000000.txt", "string10000000.txt"};
     std::vector<std::string> patternFiles = {"patterns10.txt", "patterns100.txt", "patterns1000.txt", "patterns10000.txt", "patterns100000.txt"};
-    int found;
+    size_t found;
 
     for (const auto& stringFile : stringFiles) {
         std::string text = readString("../data/" + stringFile);

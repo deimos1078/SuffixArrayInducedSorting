@@ -7,7 +7,7 @@ class BruteForce {
 public:
     explicit BruteForce(const std::string& string);
 	
-	std::vector<int> search(const std::string & pattern) const;
+	std::vector<size_t> search(const std::string & pattern) const;
 
 private:
     std::string string;

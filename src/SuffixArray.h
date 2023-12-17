@@ -8,41 +8,69 @@
 
 class SuffixArray {
 public:
-    SuffixArray(const std::string& input_string);
-    SuffixArray(const std::vector<int>& S0);
-    std::vector<int> search(const std::string &pattern);
-    std::string getTypeArrayString();
-    std::vector<int> getSamplePointerArray();
-    std::vector<int> getSA();
-    void printTable();
+    explicit SuffixArray(const std::string& input_string);
+    explicit SuffixArray(const std::vector<size_t>& S0);
+    std::vector<size_t> search(const std::string &pattern) const;
+    std::vector<size_t> getSA();
 
 private:
-    std::vector<bool> typeTArray;
-    std::vector<int> samplePointerArray;
-    std::vector<int> SA;
-    std::vector<int> S;
-    std::vector<int> S1;
-    std::vector<int> LCP;
-    std::vector<int> buckets;
-    std::map<int, int> charCounts;
-    std::unordered_map<int, int> charToBucket;
-    int bucketsLen;
+    std::vector<size_t> S;
+    std::vector<size_t> SA;
+    std::vector<size_t> LCP;
 
     void constructS(const std::string &str);
-    void calcCharCounts();
-    void initBuckets();
-    void constructTTypeArray();
-    void constructSamplePointerArray();
-    int getLMSSubstrLen(size_t SPAIndex);
-    bool constructS1AndCheckAllUniqueLetters();
-    std::vector<int> findAllOccurances(int suffixArrayMatchIndex, int patternLength);
-    std::vector<int> getSA1();
-    void inducedSort(std::vector<int> arrToLoad, bool LMSInduction);
-    int LCPRec(int i, int j);
+    std::map<size_t, size_t> calcCharCounts() const;
+    std::vector<size_t> initBuckets(const std::map<size_t, size_t> &charCounts, std::unordered_map<size_t, size_t> &charToBucket) const;
+    std::vector<bool> constructTTypeArray() const;
+    std::vector<size_t> constructSamplePointerArray(const std::vector<bool> &typeTArray) const;
+    std::vector<size_t> initTails(const std::vector<size_t> &buckets) const;
+    void induceSuffixes(
+        const std::vector<size_t> &buckets,
+        const std::vector<bool> &typeTArray,
+        std::unordered_map<size_t, size_t> &charToBucket
+    );
+
+    void inducedSortCommon(
+        std::map<size_t, size_t> &charCounts,
+        const std::vector<size_t> &buckets, 
+        std::unordered_map<size_t, size_t> &charToBucket
+    );
+
+    void inducedSort(
+        const std::vector<size_t> &SA1, 
+        const std::vector<size_t> &samplePointerArray,   
+        std::map<size_t, size_t> &charCounts,
+        const std::vector<size_t> &buckets, 
+        std::unordered_map<size_t, size_t> &charToBucket,
+        const std::vector<bool> &typeTArray
+    );
+
+    void inducedSort(
+        const std::vector<size_t> &samplePointerArray, 
+        std::map<size_t, size_t> &charCounts,
+        const std::vector<size_t> &buckets, 
+        std::unordered_map<size_t, size_t> &charToBucket,
+        const std::vector<bool> &typeTArray
+    ); 
+
+    size_t getLMSSubstrLen(const size_t SPAIndex, const std::vector<size_t> &samplePointerArray) const;
+
+    std::vector<size_t> constructS1AndCheckAllUniqueLetters(
+        const std::vector<size_t> &samplePointerArray,
+        const std::vector<size_t> &buckets,    
+        bool &areAllLettersUnique
+    ) const;
+
+    std::vector<size_t> findAllOccurances(const size_t suffixArrayMatchIndex, const size_t patternLength) const;
+    size_t LCPRec(const size_t i, const size_t j);
     void constructLCPArray();
-    int getLCP(int index1, int index2);
-    int countMatches(std::vector<int> pattern, int startIndex, int patternLength, int stringIndex);
-    std::vector<int> searchPrivate (std::vector<int> pattern);
+    size_t getLCP(const size_t index1, const size_t index2) const;
+    size_t countMatches(
+        const std::vector<size_t> &pattern, 
+        const size_t startIndex, 
+        const size_t patternLength, 
+        const size_t stringIndex) const;
+    std::vector<size_t> searchPrivate(const std::vector<size_t> &pattern) const;
 };
 
 #endif // SUFFIXARRAY_H
